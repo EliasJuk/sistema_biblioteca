@@ -36,15 +36,22 @@ int menu(){
 	
 	printf("\n1- CADASTRAR LIVRO");
 	printf("\n2- BUSCAR LIVRO");
-	printf("\n2- LISTAR TODOS LIVRO\n");
+	printf("\n2- LISTAR TODOS LIVRO");
+	printf("\n3 - Sair\n");
 	printf("\nESCOLHA UMA OPCAO: ");
 	scanf("%d", &opcao_menu);
 	
-	switch(opcao_menu){
-		case 1: cadastroLivros(); break;
-		case 2: buscarLivros(); break;
-		default: menu();
+	if (opcao_menu >= 1 && opcao_menu <= 3){
+		switch(opcao_menu){
+			case 1: cadastroLivros(); break;
+			case 2: buscarLivros(); break;
+			case 3: break;
+			default: menu();
+		}	
+	}else{
+		menu();
 	}
+
 }
 
 int cadastroLivros(){	
@@ -98,4 +105,7 @@ buscarLivros(){
 		printf("\nAUTOR: %s", cadLivro[i].autor);
 		printf("\nEDITORA: %s", cadLivro[i].editora);
 	}
+	
+	system("pause");
+	menu();
 }
