@@ -6,6 +6,8 @@
 
 #define max_livros 100
 
+int id_livro; //ID do ultimo livro cadastrado
+
 struct Livros{
 	int cod;
 	char nome[50];
@@ -40,14 +42,12 @@ int menu(){
 	
 	switch(opcao_menu){
 		case 1: cadastroLivros(); break;
-		case 2: cadastroLivros(); break;
+		case 2: buscarLivros(); break;
 		default: menu();
 	}
 }
 
-int cadastroLivros(){
-	int id_livro;
-	
+int cadastroLivros(){	
 	system("cls"); //Limpa a tela
 	cabecalho(); //Chama a função que printa o cabeçalho
 	
@@ -86,4 +86,16 @@ int cadastroLivros(){
 	printf("\n\nLIVRO CADASTRADO COM SUCESSO!\n\n");
 	system("pause");
 	menu();
+}
+
+buscarLivros(){
+	int i;
+	
+	for (i = 1; i <= id_livro; i++){
+		printf("\n========================================\n");
+		printf("\nCOD: %d", cadLivro[i].cod);
+		printf("\nNOME: %s", cadLivro[i].nome);
+		printf("\nAUTOR: %s", cadLivro[i].autor);
+		printf("\nEDITORA: %s", cadLivro[i].editora);
+	}
 }
