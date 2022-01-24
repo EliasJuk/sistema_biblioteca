@@ -6,7 +6,25 @@
 
 #define max_livros 100
 
+/*****************************EFECTS***************************************/
+#define NONE        "\033[0m"
+#define BOLD        "\033[1m"
+/*****************************COLORS***************************************/
+#define C_VERMELHO  "\x1b[31m"
+#define C_YELLOW    "\033[33m"
+#define C_VERDE     "\x1b[32m"
+#define C_AZUL      "\x1b[34m"
+#define C_MAGENTA   "\033[35m"
+#define C_CYAN      "\033[36m"
+#define C_GRAY      "\033[37m"
+#define C_RESET     "\x1b[0m"
+
+/**************************************************************************/
+
+
+
 int id_livro; //ID do ultimo livro cadastrado
+id_livro = 1;
 
 struct Livros{
 	int cod;
@@ -23,9 +41,9 @@ int main() {
 }
 
 int cabecalho() {	
-	printf("******************************************************************\n");
-	printf("****************      BIBLIOTECA VIRTUAL      ********************\n");
-	printf("******************************************************************\n");
+	printf(C_MAGENTA"******************************************************************\n"C_RESET);
+	printf(C_MAGENTA"****************      "C_RESET"BIBLIOTECA VIRTUAL"C_MAGENTA"      ********************\n"C_RESET);
+	printf(C_MAGENTA"******************************************************************\n"C_RESET);
 }
 
 
@@ -35,17 +53,18 @@ int menu(){
 	cabecalho(); //Chama a função que printa o cabeçalho
 	
 	printf("\n1- CADASTRAR LIVRO");
-	printf("\n2- BUSCAR LIVRO");
 	printf("\n2- LISTAR TODOS LIVRO");
-	printf("\n3 - Sair\n");
+	printf("\n3- BUSCAR LIVRO");
+	printf("\n4- Sair\n");
 	printf("\nESCOLHA UMA OPCAO: ");
 	scanf("%d", &opcao_menu);
 	
 	if (opcao_menu >= 1 && opcao_menu <= 3){
 		switch(opcao_menu){
 			case 1: cadastroLivros(); break;
-			case 2: buscarLivros(); break;
-			case 3: break;
+			case 2: listarLivros(); break;
+			case 3: buscarLivro(); break;
+			case 4: break;
 			default: menu();
 		}	
 	}else{
@@ -60,8 +79,6 @@ int cadastroLivros(){
 	
 	printf("CADASTRO DE LIVROS\n\n");
 	
-	//ID	
-	id_livro = id_livro + 1; //Gera um novo ID
 	printf("Livro: %d\n\n",id_livro);
 		
 	//COD
@@ -90,12 +107,16 @@ int cadastroLivros(){
 	
 	
 	
+	//ID	
+	id_livro = id_livro + 1; //Gera um novo ID
+	
+	
 	printf("\n\nLIVRO CADASTRADO COM SUCESSO!\n\n");
 	system("pause");
 	menu();
 }
 
-buscarLivros(){
+listarLivros(){
 	int i;
 	
 	for (i = 1; i <= id_livro; i++){
@@ -108,4 +129,34 @@ buscarLivros(){
 	
 	system("pause");
 	menu();
+}
+
+
+buscarLivro(){		
+	system("cls"); //Limpa a tela
+	cabecalho(); //Chama a função que printa o cabeçalho
+	
+	int j;
+	char buscarLivroNome[50];
+	
+	printf(C_YELLOW"\nQual o nome do livro: "C_RESET );
+	fflush(stdin);
+	gets(buscarLivroNome);
+	printf("\n========================================");
+	
+	
+	for(j = 1; j <= id_livro; j++){
+		//strcmp - FUNÇÃO PARA COMPRAR STRING
+		if(strcmp(cadLivro[j].nome, buscarLivroNome) == 0) {
+			printf("\nCOD: %d", cadLivro[j].cod);
+			printf("\nNOME: %s", cadLivro[j].nome);
+			printf("\nAUTOR: %s", cadLivro[j].autor);
+			printf("\nEDITORA: %s", cadLivro[j].editora);
+			printf("\n========================================\n\n");
+		}
+	}
+	
+
+	system("pause");
+	menu();	
 }
